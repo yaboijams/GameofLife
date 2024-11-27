@@ -1,0 +1,202 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+    color: #343a40;
+  }
+  
+  /* Main Container */
+  main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  /* Left Side */
+  .left-side {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .left-side h1 {
+    font-size: 2.5rem;
+    color: #495057;
+    margin-bottom: 10px;
+  }
+  
+  .left-side p {
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(to right, #4e73df, #2e59d9);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background: linear-gradient(to right, #2e59d9, #224abe);
+    transform: translateY(-2px);
+  }
+  
+  button:active {
+    transform: translateY(0);
+  }
+  
+  /* Progress Bars */
+  .stat-bar-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;
+  }
+  
+  .stat-label {
+    flex: 0.3;
+    font-weight: bold;
+    color: #495057;
+  }
+  
+  .stat-bar {
+    flex: 1;
+    height: 20px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .stat-bar-fill.health {
+    background: linear-gradient(to right, #ff6b6b, #fa5252);
+  }
+  
+  .stat-bar-fill.smarts {
+    background: linear-gradient(to right, #51cf66, #40c057);
+  }
+  
+  .stat-bar-fill.looks {
+    background: linear-gradient(to right, #339af0, #1c7ed6);
+  }
+  
+  .stat-bar-fill.happiness {
+    background: linear-gradient(to right, #fcc419, #fab005);
+  }
+  
+  /* Game State */
+  h2 {
+    font-size: 1.8rem;
+    margin: 20px 0 10px;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 5px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    font-size: 1rem;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  li strong {
+    color: #343a40;
+  }
+  
+  .deceased {
+    color: #6c757d;
+    font-style: italic;
+  }
+  
+  /* Last Life Event */
+  .life-event {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .life-event h3 {
+    margin: 0;
+    color: #495057;
+  }
+  
+  /* Right Side */
+  .right-side {
+    flex: 0.5;
+    margin-left: 20px;
+  }
+  
+  .right-side h2 {
+    font-size: 1.8rem;
+    color: #495057;
+    margin-bottom: 15px;
+  }
+  
+  .right-side ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .right-side li {
+    font-size: 1rem;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background: #e9ecef;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Mobile Responsiveness */
+  @media screen and (max-width: 768px) {
+    main {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .divider {
+      display: none;
+    }
+  
+    .left-side,
+    .right-side {
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+  

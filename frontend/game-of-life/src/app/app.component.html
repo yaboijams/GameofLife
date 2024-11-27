@@ -1,0 +1,208 @@
+<main class="main">
+  <div class="content">
+    <div class="left-side">
+      <h1>{{ title }}</h1>
+      <p>Welcome to the Game of Life!</p>
+
+      <!-- Add Game Interaction -->
+      <div *ngIf="!isGameStarted" class="start-game">
+        <button (click)="startGame()">Start Game</button>
+      </div>
+      <div *ngIf="isGameStarted" class="game-actions">
+        <button (click)="rollDice()">Roll Dice</button>
+      </div>
+
+      <!-- Display Last Life Event -->
+      <div *ngIf="lastLifeEvent" class="life-event">
+        <h3>Last Life Event:</h3>
+        <p>{{ lastLifeEvent }}</p>
+      </div>
+
+      <!-- Display Game State -->
+      <div *ngIf="gameState">
+        <h2>Game State</h2>
+        <ul class="player-stats">
+          <li *ngFor="let player of gameState.players">
+            <strong>{{ player.name }}</strong>: Position: {{ player.position }}
+            <div class="stat-bar-container">
+              <span class="stat-label">Health</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill health"
+                  [style.width.%]="player.health"
+                ></div>
+              </div>
+            </div>
+            <div class="stat-bar-container">
+              <span class="stat-label">Smarts</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill smarts"
+                  [style.width.%]="player.smarts"
+                ></div>
+              </div>
+            </div>
+            <div class="stat-bar-container">
+              <span class="stat-label">Looks</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill looks"
+                  [style.width.%]="player.looks"
+                ></div>
+              </div>
+            </div>
+            <div class="stat-bar-container">
+              <span class="stat-label">Happiness</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill happiness"
+                  [style.width.%]="player.happiness"
+                ></div>
+              </div>
+            </div>
+            <span *ngIf="!player.isAlive" class="deceased"> (Deceased)</span>
+          </li>
+        </ul>
+        <p>Turn: Player {{ gameState.players[gameState.turnIndex]?.name }}</p>
+        <p *ngIf="gameState.isGameOver" class="game-over">Game Over!</p>
+      </div>
+    </div>
+
+    <div class="divider" role="separator" aria-label="Divider"></div>
+
+    <div class="right-side">
+      <!-- Leaderboard -->
+      <h2>Leaderboard</h2>
+      <ul class="leaderboard">
+        <li *ngFor="let player of leaderboard">
+          <strong>{{ player.name }}</strong> - Score: {{ player.score }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<!-- Updated Styles for Progress Bars -->
+<style>
+  .stat-bar-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;
+  }
+
+  .stat-label {
+    flex: 0.3;
+    font-weight: bold;
+    color: #495057;
+  }
+
+  .stat-bar {
+    flex: 1;
+    height: 20px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .stat-bar-fill.health {
+    background: linear-gradient(to right, #ff6b6b, #fa5252);
+  }
+
+  .stat-bar-fill.smarts {
+    background: linear-gradient(to right, #51cf66, #40c057);
+  }
+
+  .stat-bar-fill.looks {
+    background: linear-gradient(to right, #339af0, #1c7ed6);
+  }
+
+  .stat-bar-fill.happiness {
+    background: linear-gradient(to right, #fcc419, #fab005);
+  }
+
+  .critical {
+    color: red;
+    font-weight: bold;
+  }
+
+  .deceased {
+    color: gray;
+    font-style: italic;
+  }
+
+  .game-over {
+    color: darkred;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .life-event {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+  }
+
+  .life-event h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .player-stats {
+    list-style: none;
+    padding: 0;
+  }
+
+  .player-stats li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+
+  .leaderboard {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .leaderboard li {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .divider {
+    margin: 20px 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .start-game,
+  .game-actions {
+    margin-bottom: 15px;
+  }
+
+  .start-game button,
+  .game-actions button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .start-game button:hover,
+  .game-actions button:hover {
+    background-color: #0056b3;
+  }
+</style>
