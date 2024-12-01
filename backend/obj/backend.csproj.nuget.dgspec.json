@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jmitchell\\Documents\\GitHub\\GameofLife\\backend\\backend.csproj": {}
+    "C:\\Users\\papak\\Documents\\GitHub\\GameofLife\\GameofLife\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jmitchell\\Documents\\GitHub\\GameofLife\\backend\\backend.csproj": {
+    "C:\\Users\\papak\\Documents\\GitHub\\GameofLife\\GameofLife\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jmitchell\\Documents\\GitHub\\GameofLife\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\papak\\Documents\\GitHub\\GameofLife\\GameofLife\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\jmitchell\\Documents\\GitHub\\GameofLife\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\jmitchell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jmitchell\\Documents\\GitHub\\GameofLife\\backend\\obj\\",
+        "projectPath": "C:\\Users\\papak\\Documents\\GitHub\\GameofLife\\GameofLife\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\papak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\papak\\Documents\\GitHub\\GameofLife\\GameofLife\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jmitchell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\papak\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
