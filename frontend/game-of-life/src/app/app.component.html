@@ -1,122 +1,105 @@
 <main class="main">
   <div class="container">
-    <div class="content">
-      <!-- Left Side -->
-      <div class="left-side">
-        <h1>{{ title }}</h1>
-        <p>Welcome to the Game of Life!</p>
+    <!-- Left Side Panel -->
+    <aside class="left-side">
+      <h1>{{ title }}</h1>
+      <p>Welcome to the Game of Life!</p>
 
-        <!-- Game Controls -->
-        <div *ngIf="!isGameStarted" class="start-game">
-          <button (click)="startGame()">Start Game</button>
-        </div>
-        <div *ngIf="isGameStarted" class="game-actions">
-          <button (click)="rollDice()">Roll Dice</button>
-        </div>
-
-        <!-- Last Life Event -->
-        <div class="life-event">
-          <h3>Last Life Event:</h3>
-          <p>{{ lastLifeEvent }}</p>
-        </div>
-
-        <!-- Game State -->
-        <div *ngIf="gameState">
-          <h2>Game State</h2>
-          <ul class="player-stats">
-            <li *ngFor="let player of gameState.players">
-              <strong>{{ player.name }}: Year: {{ player.year }} (Years: {{ player.yearRange }})</strong>
-              <div class="stat-bar-container">
-                <span class="stat-label">Health</span>
-                <div class="stat-bar">
-                  <div
-                    class="stat-bar-fill health"
-                    [style.width.%]="player.Health"
-                  ></div>
-                </div>
-              </div>
-              <div class="stat-bar-container">
-                <span class="stat-label">Smarts</span>
-                <div class="stat-bar">
-                  <div
-                    class="stat-bar-fill smarts"
-                    [style.width.%]="player.Smarts"
-                  ></div>
-                </div>
-              </div>
-              <div class="stat-bar-container">
-                <span class="stat-label">Looks</span>
-                <div class="stat-bar">
-                  <div
-                    class="stat-bar-fill looks"
-                    [style.width.%]="player.Looks"
-                  ></div>
-                </div>
-              </div>
-              <div class="stat-bar-container">
-                <span class="stat-label">Happiness</span>
-                <div class="stat-bar">
-                  <div
-                    class="stat-bar-fill happiness"
-                    [style.width.%]="player.Happiness"
-                  ></div>
-                </div>
-              </div>
-              <span *ngIf="!player.isAlive" class="deceased"> (Deceased)</span>
-            </li>
-          </ul>
-          <p>Turn: Player {{ gameState.players[gameState.turnIndex]?.name }}</p>
-          <p *ngIf="gameState.isGameOver" class="game-over">Game Over!</p>
-        </div>
+      <!-- Game Controls -->
+      <div *ngIf="!isGameStarted" class="start-game">
+        <button (click)="startGame()">Start Game</button>
+      </div>
+      <div *ngIf="isGameStarted" class="game-actions">
+        <button (click)="rollDice()">Roll Dice</button>
       </div>
 
-      <!-- Game Board -->
-      <div class="board-container">
-        <h2>Game Board</h2>
-        <div class="board">
-          <div
-            *ngFor="let cell of board; let i = index"
-            [ngClass]="{
-              'has-good-event': goodEventCells.includes(i + 1),
-              'has-bad-event': badEventCells.includes(i + 1),
-              'has-life-event': lifeEventCells.includes(i + 1),
-              'has-random-event': statDependentCells.includes(i + 1)
-            }"
-            class="board-cell"
-          >
-            <span class="cell-index">{{ i + 1 }}</span>
+      <!-- Last Life Event -->
+      <div class="life-event">
+        <h3>Last Life Event:</h3>
+        <p>{{ lastLifeEvent }}</p>
+      </div>
 
-            <!-- Marker for life events -->
-            <span *ngIf="lifeEventCells.includes(i + 1)" class="life-event-marker">
-              🌟
-            </span>
-
-            <!-- Marker for stat-dependent random events -->
-            <span *ngIf="statDependentCells.includes(i + 1)" class="random-event-marker">
-              ⚡
-            </span>
-
-            <!-- Player marker -->
-            <div *ngFor="let player of playersOnCell(i)" class="player-marker">
-              {{ player.name.charAt(0) }}
+      <!-- Game State -->
+      <div *ngIf="gameState" class="game-state">
+        <h2>Game State</h2>
+        <ul class="player-stats">
+          <li *ngFor="let player of gameState.players">
+            <strong>{{ player.name }}: Year {{ player.year }}</strong>
+            <div class="stat-bar-container">
+              <span>Health</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill health"
+                  [style.width.%]="player.health || 0"
+                ></div>
+              </div>
             </div>
+            <div class="stat-bar-container">
+              <span>Smarts</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill smarts"
+                  [style.width.%]="player.smarts || 0"
+                ></div>
+              </div>
+            </div>
+            <div class="stat-bar-container">
+              <span>Looks</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill looks"
+                  [style.width.%]="player.looks || 0"
+                ></div>
+              </div>
+            </div>
+            <div class="stat-bar-container">
+              <span>Happiness</span>
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill happiness"
+                  [style.width.%]="player.happiness || 0"
+                ></div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <p>Turn: Player {{ gameState.players[gameState.turnIndex]?.name }}</p>
+        <p>Last Life Event: {{ lastLifeEvent }}</p>
+      </div>
+    </aside>
+
+    <!-- Main Board -->
+    <section class="board-container">
+      <h2>Game Board</h2>
+      <div class="board">
+        <div
+          *ngFor="let cell of board; let i = index"
+          [ngClass]="{
+            'has-good-event': goodEventCells.includes(i + 1),
+            'has-bad-event': badEventCells.includes(i + 1),
+            'has-life-event': lifeEventCells.includes(i + 1),
+            'has-random-event': statDependentCells.includes(i + 1)
+          }"
+          class="board-cell"
+        >
+          <span class="cell-index">{{ i + 1 }}</span>
+          <span *ngIf="lifeEventCells.includes(i + 1)" class="life-event-marker">🌟</span>
+          <div *ngFor="let player of playersOnCell(i)" class="player-marker">
+            {{ player.name.charAt(0) }}
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Divider -->
-      <div class="divider" role="separator" aria-label="Divider"></div>
-
-      <!-- Right Side -->
-      <div class="right-side">
-        <h2>Leaderboard</h2>
-        <ul class="leaderboard">
-          <li *ngFor="let player of leaderboard">
-            <strong>{{ player.name }}</strong> - Score: {{ player.score }}
-          </li>
-        </ul>
-      </div>
-    </div>
+    <!-- Right Side Panel -->
+    <aside class="right-side">
+      <h2>Leaderboard</h2>
+      <ul class="leaderboard">
+        <li *ngFor="let player of leaderboard">
+          <strong>{{ player.name }}</strong> - Score: {{ player.score }}
+        </li>
+      </ul>
+    </aside>
   </div>
 
   <!-- Modal -->
@@ -136,10 +119,10 @@
       <!-- Bad Event Interaction -->
       <div *ngIf="isBadEvent">
         <p>Choose which stat to decrease:</p>
-        <button (click)="applyBadEvent('Health')">Health</button>
-        <button (click)="applyBadEvent('Smarts')">Smarts</button>
-        <button (click)="applyBadEvent('Looks')">Looks</button>
-        <button (click)="applyBadEvent('Happiness')">Happiness</button>
+        <button (click)="applyBadEvent('health')">Health</button>
+        <button (click)="applyBadEvent('smarts')">Smarts</button>
+        <button (click)="applyBadEvent('looks')">Looks</button>
+        <button (click)="applyBadEvent('happiness')">Happiness</button>
       </div>
 
       <!-- Close Modal -->

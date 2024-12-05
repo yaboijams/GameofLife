@@ -17,7 +17,7 @@ export class AppComponent {
   leaderboard: any[] = [];
   lastLifeEvent: string = 'No life events have happened yet.';
   board: number[] = [];
-  boardSize = 50;
+  boardSize = 56;
   yearsPerCycle = 5;
   goodEventCells: number[] = [5, 15, 25, 35];
   badEventCells: number[] = [10, 20, 30, 40];
@@ -84,29 +84,43 @@ export class AppComponent {
   }
 
   rollDice(): void {
-    if (!this.isGameStarted) return;
+  if (!this.isGameStarted) return;
 
-    this.gameService.rollDice().subscribe({
-      next: (state) => {
-        this.gameState = state;
-        const currentPlayer = this.gameState.players[this.gameState.turnIndex];
+  console.log("Rolling dice...");
 
-        // Handle board cycle and update years
-        if (currentPlayer.position >= this.boardSize) {
-          currentPlayer.position %= this.boardSize;
-          currentPlayer.year += this.yearsPerCycle; // Add 5 years for every cycle
-          currentPlayer.yearRange = this.getYearRange(currentPlayer.position);
+  this.gameService.rollDice().subscribe({
+    next: (state) => {
+      console.log("API Response (Success):", state);
+      this.gameState = state;
+      const currentPlayer = this.gameState.players[this.gameState.turnIndex];
 
-          // Trigger life event on board cycle completion
-          this.triggerLifeEvent();
-        }
+      // Update position and handle cell events
+      const diceRoll = Math.floor(Math.random() * 6) + 1; // Simulate dice roll
+      currentPlayer.position += diceRoll;
 
-        this.handleCellEvents(currentPlayer);
-        this.updateLeaderboard();
-      },
-      error: (err) => console.error('Error rolling dice:', err),
-    });
-  }
+      // Handle board cycle and update years
+      if (currentPlayer.position >= this.boardSize) {
+        currentPlayer.position %= this.boardSize;
+        currentPlayer.year += this.yearsPerCycle; // Add 5 years for every cycle
+        currentPlayer.yearRange = this.getYearRange(currentPlayer.position);
+
+        // Trigger life event on board cycle completion
+        this.triggerLifeEvent();
+      }
+
+      // Trigger cell events for the current player immediately
+      this.handleCellEvents(currentPlayer);
+
+      // Update leaderboard after handling cell events
+      this.updateLeaderboard();
+    },
+    error: (err) => {
+      console.error("API Response (Error):", err);
+    },
+  });
+}
+
+  
 
   handleCellEvents(player: any): void {
     const currentCell = (player.position - 1) % this.boardSize + 1;
@@ -146,27 +160,27 @@ export class AppComponent {
   triggerStatDependentEvent(player: any): void {
     const events = [
       {
-        condition: () => player.Smarts >= 75,
+        condition: () => player.smarts >= 75,
         event: 'You secured a high-paying career! +20 Happiness, +10 Health.',
         effect: () => {
-          player.Happiness += 20;
-          player.Health += 10;
+          player.happiness += 20;
+          player.health += 10;
         },
       },
       {
-        condition: () => player.Looks >= 70,
+        condition: () => player.looks >= 70,
         event: 'You became a model! +15 Happiness, +5 Smarts.',
         effect: () => {
-          player.Happiness += 15;
-          player.Smarts += 5;
+          player.happiness += 15;
+          player.smarts += 5;
         },
       },
       {
-        condition: () => player.Health >= 80,
+        condition: () => player.health >= 80,
         event: 'You completed a marathon! +20 Smarts, +10 Looks.',
         effect: () => {
-          player.Smarts += 20;
-          player.Looks += 10;
+          player.smarts += 20;
+          player.looks += 10;
         },
       },
     ];
@@ -221,16 +235,16 @@ export class AppComponent {
 
     switch (stat) {
       case 'Health':
-        currentPlayer.Health = Math.max(currentPlayer.Health - 10, 0);
+        currentPlayer.health = Math.max(currentPlayer.health - 10, 0);
         break;
       case 'Smarts':
-        currentPlayer.Smarts = Math.max(currentPlayer.Smarts - 10, 0);
+        currentPlayer.smarts = Math.max(currentPlayer.smarts - 10, 0);
         break;
       case 'Looks':
-        currentPlayer.Looks = Math.max(currentPlayer.Looks - 10, 0);
+        currentPlayer.looks = Math.max(currentPlayer.looks - 10, 0);
         break;
       case 'Happiness':
-        currentPlayer.Happiness = Math.max(currentPlayer.Happiness - 10, 0);
+        currentPlayer.happiness = Math.max(currentPlayer.happiness - 10, 0);
         break;
     }
 
@@ -244,26 +258,26 @@ export class AppComponent {
     const currentPlayer = this.gameState.players[this.gameState.turnIndex];
 
     if (eventDescription.includes('Happiness')) {
-      currentPlayer.Happiness += eventDescription.includes('+') ? 10 : -10;
+      currentPlayer.happiness += eventDescription.includes('+') ? 10 : -10;
     }
     if (eventDescription.includes('Smarts')) {
-      currentPlayer.Smarts += eventDescription.includes('+') ? 10 : -10;
+      currentPlayer.smarts += eventDescription.includes('+') ? 10 : -10;
     }
     if (eventDescription.includes('Looks')) {
-      currentPlayer.Looks += eventDescription.includes('+') ? 10 : -10;
+      currentPlayer.looks += eventDescription.includes('+') ? 10 : -10;
     }
     if (eventDescription.includes('Health')) {
-      currentPlayer.Health += eventDescription.includes('+') ? 10 : -10;
+      currentPlayer.health += eventDescription.includes('+') ? 10 : -10;
     }
 
     this.capStats(currentPlayer);
   }
 
   capStats(player: any): void {
-    player.Health = Math.min(Math.max(player.Health, 0), 100);
-    player.Smarts = Math.min(Math.max(player.Smarts, 0), 100);
-    player.Looks = Math.min(Math.max(player.Looks, 0), 100);
-    player.Happiness = Math.min(Math.max(player.Happiness, 0), 100);
+    player.health = Math.min(Math.max(player.health, 0), 100);
+    player.smarts = Math.min(Math.max(player.smarts, 0), 100);
+    player.looks = Math.min(Math.max(player.looks, 0), 100);
+    player.happiness = Math.min(Math.max(player.happiness, 0), 100);
   }
 
   updateLeaderboard(): void {
