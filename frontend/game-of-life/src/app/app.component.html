@@ -84,7 +84,7 @@
         >
           <span class="cell-index">{{ i + 1 }}</span>
           <span *ngIf="lifeEventCells.includes(i + 1)" class="life-event-marker">🌟</span>
-          <div *ngFor="let player of playersOnCell(i)" class="player-marker">
+          <div *ngFor="let player of playersOnCell(i)" class="player-marker" [style.backgroundColor]="player.color">
             {{ player.name.charAt(0) }}
           </div>
         </div>

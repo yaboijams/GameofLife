@@ -68,11 +68,17 @@ export class AppComponent {
   }
 
   startGame(): void {
-    const players = ['Alice', 'Bob'];
-    this.gameService.startGame(players).subscribe({
+    const players = [
+      { name: 'Alice', color: '#FF79C6' }, // Neon pink
+      { name: 'Bob', color: '#8BE9FD' },   // Neon cyan
+      { name: 'Charlie', color: '#50FA7B' }, // Neon green
+      { name: 'Diana', color: '#FF5555' } // Neon red
+    ];
+    this.gameService.startGame(players.map(player => player.name)).subscribe({
       next: (state) => {
         this.gameState = state;
-        this.gameState.players.forEach((player: any) => {
+        this.gameState.players.forEach((player: any, index: number) => {
+          player.color = players[index].color; // Assign color
           player.yearRange = this.getYearRange(player.position);
         });
         this.isGameStarted = true;
@@ -82,7 +88,7 @@ export class AppComponent {
       error: (err) => console.error('Error starting game:', err),
     });
   }
-
+  
   rollDice(): void {
   if (!this.isGameStarted) return;
 
