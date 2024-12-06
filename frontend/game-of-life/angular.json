@@ -15,7 +15,7 @@
           "options": {
             "outputPath": "dist/game-of-life",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -29,15 +29,17 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -49,13 +51,16 @@
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"
                 }
-              ],
-              "outputHashing": "all"
+              ]
             },
             "development": {
               "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": true,
+              "aot": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "buildOptimizer": false
             }
           },
           "defaultConfiguration": "production"
@@ -64,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "game-of-life:build:production"
+              "browserTarget": "game-of-life:build:production"
             },
             "development": {
-              "buildTarget": "game-of-life:build:development"
+              "browserTarget": "game-of-life:build:development"
             }
           },
           "defaultConfiguration": "development"
