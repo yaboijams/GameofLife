@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1f1f1f 0%, #2a0038 25%, #56007a 50%, #08007a 75%, #1f1f1f 100%);
+    background-size: 200% 200%; /* Ensure smooth transition */
+    animation: neonGradient 8s linear infinite; /* Continuous animation */
+    color: #f5f5f5;
+    line-height: 1.5;
+    min-height: 100vh; /* Ensure body takes full height */
+    margin: 0; /* Prevent unwanted body margin */
+    overflow: hidden; /* Prevent scrollbars if not needed */
+    position: relative; /* Ensure stacking context */
+    z-index: 0; /* Prevent unintended overlaps */
+    pointer-events: auto; /* Ensure elements within body remain interactive */
+  }
+  
+  
+  /* Continuous Gradient Animation */
+  @keyframes neonGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  
